@@ -15,11 +15,11 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <a href="#" className="font-display text-2xl font-bold inline-block mb-4">
-              <span className="text-gold">Grand</span>Vista
+              <span className="text-gold">Bamboo</span>Woods
             </a>
             <p className="text-cream/70 mb-6 leading-relaxed">
-              Creating unforgettable celebrations in a stunning venue. Your
-              perfect event starts here.
+              A charming restaurant with beautiful spaces for dining, 
+              gatherings, and intimate celebrations.
             </p>
             <div className="flex gap-4">
               <a
@@ -55,11 +55,11 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               {[
-                { href: "#events", label: "Our Events" },
-                { href: "#venue", label: "The Venue" },
-                { href: "#dining", label: "Restaurant & Catering" },
-                { href: "#testimonials", label: "Testimonials" },
-                { href: "#booking", label: "Book an Event" },
+                { href: "#dining", label: "Our Restaurant" },
+                { href: "#venue", label: "Spaces" },
+                { href: "#events", label: "Events" },
+                { href: "#testimonials", label: "Reviews" },
+                { href: "#booking", label: "Reservations" },
               ].map((link) => (
                 <li key={link.href}>
                   <a
@@ -73,7 +73,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Events */}
+          {/* What We Offer */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -81,19 +81,19 @@ const Footer = () => {
             transition={{ delay: 0.2 }}
           >
             <h4 className="font-display text-lg font-semibold mb-6">
-              Events We Host
+              What We Offer
             </h4>
             <ul className="space-y-3">
               {[
-                "Weddings",
+                "Restaurant Dining",
+                "Garden Gazebos",
+                "Meeting Rooms",
                 "Birthday Parties",
                 "Baby Showers",
-                "Corporate Events",
-                "Graduation Celebrations",
                 "Private Functions",
-              ].map((event) => (
-                <li key={event}>
-                  <span className="text-cream/70">{event}</span>
+              ].map((item) => (
+                <li key={item}>
+                  <span className="text-cream/70">{item}</span>
                 </li>
               ))}
             </ul>
@@ -113,9 +113,9 @@ const Footer = () => {
               <li className="flex gap-3">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
                 <span className="text-cream/70">
-                  123 Celebration Avenue,
+                  123 Garden Lane,
                   <br />
-                  Garden City, GC 12345
+                  Your City, YC 12345
                 </span>
               </li>
               <li className="flex gap-3">
@@ -130,10 +130,10 @@ const Footer = () => {
               <li className="flex gap-3">
                 <Mail className="w-5 h-5 text-gold flex-shrink-0" />
                 <a
-                  href="mailto:events@grandvista.com"
+                  href="mailto:hello@bamboowoods.com"
                   className="text-cream/70 hover:text-gold transition-colors"
                 >
-                  events@grandvista.com
+                  hello@bamboowoods.com
                 </a>
               </li>
               <li className="flex gap-3">
@@ -150,7 +150,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-cream/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-cream/50 text-sm">
-              © {currentYear} Grand Vista Events. All rights reserved.
+              © {currentYear} Bamboo Woods. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm text-cream/50">
               <a href="#" className="hover:text-gold transition-colors">
