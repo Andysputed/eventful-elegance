@@ -16,9 +16,9 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
+    { href: "#dining", label: "Restaurant" },
+    { href: "#venue", label: "Spaces" },
     { href: "#events", label: "Events" },
-    { href: "#venue", label: "Venue" },
-    { href: "#dining", label: "Dining" },
     { href: "#why-us", label: "Why Us" },
     { href: "#testimonials", label: "Reviews" },
   ];
@@ -49,7 +49,7 @@ const Navbar = () => {
             className="font-display text-2xl font-bold text-charcoal"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="text-gold">Grand</span>Vista
+            <span className="text-gold">Bamboo</span>Woods
           </motion.a>
 
           {/* Desktop Navigation */}
@@ -68,7 +68,7 @@ const Navbar = () => {
               size="lg"
               onClick={() => scrollToSection("#booking")}
             >
-              Book Your Event
+              Make a Reservation
             </Button>
           </div>
 
@@ -106,7 +106,7 @@ const Navbar = () => {
                   onClick={() => scrollToSection("#booking")}
                   className="mt-2"
                 >
-                  Book Your Event
+                  Make a Reservation
                 </Button>
               </div>
             </motion.div>

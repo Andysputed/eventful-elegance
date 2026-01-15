@@ -14,23 +14,23 @@ import {
 import { Calendar, Users, Sparkles, CheckCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
-const eventTypes = [
-  "Wedding",
+const reservationTypes = [
+  "Table Reservation",
   "Birthday Party",
   "Baby Shower",
-  "Corporate Event",
+  "Corporate Meeting",
   "Graduation Party",
+  "Intimate Wedding",
   "Private Function",
   "Other",
 ];
 
 const guestRanges = [
-  "Under 50",
-  "50-100",
-  "100-200",
-  "200-300",
-  "300-500",
-  "500+",
+  "1-4",
+  "5-10",
+  "11-20",
+  "21-50",
+  "51-100",
 ];
 
 const BookingForm = () => {
@@ -39,7 +39,7 @@ const BookingForm = () => {
     name: "",
     email: "",
     phone: "",
-    eventType: "",
+    reservationType: "",
     eventDate: "",
     guests: "",
     message: "",
@@ -49,7 +49,7 @@ const BookingForm = () => {
     e.preventDefault();
     
     // Validate form
-    if (!formData.name || !formData.email || !formData.eventType || !formData.eventDate) {
+    if (!formData.name || !formData.email || !formData.reservationType || !formData.eventDate) {
       toast({
         title: "Please fill in all required fields",
         variant: "destructive",
@@ -60,8 +60,8 @@ const BookingForm = () => {
     // Simulate form submission
     setIsSubmitted(true);
     toast({
-      title: "Inquiry Submitted!",
-      description: "We'll get back to you within 24 hours.",
+      title: "Reservation Request Sent!",
+      description: "We'll confirm your booking within 24 hours.",
     });
   };
 
@@ -78,18 +78,18 @@ const BookingForm = () => {
               <CheckCircle className="w-10 h-10 text-forest" />
             </div>
             <h3 className="font-display text-3xl text-charcoal font-bold mb-4">
-              Thank You for Your Inquiry!
+              Thank You!
             </h3>
             <p className="text-muted-foreground text-lg mb-6">
-              Our events team has received your request and will contact you
-              within 24 hours to discuss your special event.
+              We've received your request and will contact you within 24 hours
+              to confirm your reservation.
             </p>
             <Button
               variant="hero"
               size="lg"
               onClick={() => setIsSubmitted(false)}
             >
-              Submit Another Inquiry
+              Make Another Reservation
             </Button>
           </motion.div>
         </div>
@@ -109,23 +109,23 @@ const BookingForm = () => {
             transition={{ duration: 0.7 }}
           >
             <span className="text-gold font-medium uppercase tracking-wider text-sm">
-              Start Planning
+              Reservations
             </span>
             <h2 className="font-display text-4xl md:text-5xl text-charcoal font-bold mt-3 mb-6">
-              Book Your Event Today
+              Book Your Visit
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Ready to create unforgettable memories? Fill out this form and
-              our dedicated events team will reach out within 24 hours to
-              discuss your vision.
+              Whether it's a table for dinner or space for a celebration, 
+              we'd love to host you. Fill out the form and we'll get back 
+              to you promptly.
             </p>
 
             {/* Benefits */}
             <div className="space-y-4 mb-8">
               {[
-                { icon: Calendar, text: "Flexible date availability" },
-                { icon: Users, text: "Accommodates 50 to 500+ guests" },
-                { icon: Sparkles, text: "Customizable packages to fit your budget" },
+                { icon: Calendar, text: "Easy online reservations" },
+                { icon: Users, text: "Accommodate up to 100 guests for events" },
+                { icon: Sparkles, text: "Personalized service for every occasion" },
               ].map((item, index) => (
                 <motion.div
                   key={item.text}
@@ -146,9 +146,9 @@ const BookingForm = () => {
             {/* Contact Info */}
             <div className="bg-charcoal text-cream p-6 rounded-xl">
               <h4 className="font-display text-lg font-semibold mb-3">
-                Prefer to Talk?
+                Prefer to Call?
               </h4>
-              <p className="text-cream/80 mb-2">Call us directly:</p>
+              <p className="text-cream/80 mb-2">Reach us directly:</p>
               <a
                 href="tel:+1234567890"
                 className="text-gold font-bold text-xl hover:text-gold-light transition-colors"
@@ -220,22 +220,22 @@ const BookingForm = () => {
                   </div>
                 </div>
 
-                {/* Event Type */}
+                {/* Reservation Type */}
                 <div className="space-y-2">
                   <Label className="text-charcoal font-medium">
-                    Event Type *
+                    Reservation Type *
                   </Label>
                   <Select
-                    value={formData.eventType}
+                    value={formData.reservationType}
                     onValueChange={(value) =>
-                      setFormData({ ...formData, eventType: value })
+                      setFormData({ ...formData, reservationType: value })
                     }
                   >
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select event type" />
+                      <SelectValue placeholder="What are you booking for?" />
                     </SelectTrigger>
                     <SelectContent>
-                      {eventTypes.map((type) => (
+                      {reservationTypes.map((type) => (
                         <SelectItem key={type} value={type}>
                           {type}
                         </SelectItem>
@@ -271,12 +271,12 @@ const BookingForm = () => {
                       }
                     >
                       <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Estimated guests" />
+                        <SelectValue placeholder="How many guests?" />
                       </SelectTrigger>
                       <SelectContent>
                         {guestRanges.map((range) => (
                           <SelectItem key={range} value={range}>
-                            {range}
+                            {range} guests
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -287,11 +287,11 @@ const BookingForm = () => {
                 {/* Message */}
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-charcoal font-medium">
-                    Additional Details
+                    Special Requests
                   </Label>
                   <Textarea
                     id="message"
-                    placeholder="Tell us about your event vision..."
+                    placeholder="Any dietary requirements or special requests..."
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
@@ -302,11 +302,11 @@ const BookingForm = () => {
 
                 {/* Submit */}
                 <Button type="submit" variant="hero" size="xl" className="w-full">
-                  Submit Inquiry
+                  Submit Reservation
                 </Button>
 
                 <p className="text-center text-muted-foreground text-sm">
-                  We'll respond within 24 hours. No commitment required.
+                  We'll confirm within 24 hours. Walk-ins also welcome!
                 </p>
               </div>
             </form>

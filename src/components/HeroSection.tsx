@@ -17,7 +17,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="Grand Vista Events Venue"
+          alt="Bamboo Woods Restaurant"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/30 to-charcoal/60" />
@@ -44,22 +44,21 @@ const HeroSection = () => {
               ))}
             </div>
             <span className="text-charcoal font-medium text-sm">
-              Trusted by 500+ Happy Celebrations
+              Loved by Our Community
             </span>
           </motion.div>
 
           {/* Main Headline */}
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-cream font-bold leading-tight mb-6">
-            Where Dreams Become{" "}
-            <span className="text-gold-light italic">Unforgettable</span>{" "}
-            Celebrations
+            Dine, Celebrate &{" "}
+            <span className="text-gold-light italic">Gather</span>{" "}
+            at Bamboo Woods
           </h1>
 
           {/* Value Statement */}
           <p className="text-cream/90 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-            Your perfect venue for weddings, corporate events, and life's most
-            precious moments. Beautiful grounds, elegant tents, and stress-free
-            planning—all in one place.
+            A charming restaurant with beautiful outdoor spaces—perfect for 
+            everyday dining, intimate gatherings, and special celebrations.
           </p>
 
           {/* CTAs */}
@@ -72,22 +71,22 @@ const HeroSection = () => {
             <Button
               variant="hero"
               size="xl"
-              onClick={scrollToBooking}
+              onClick={() => {
+                const element = document.querySelector("#dining");
+                if (element) element.scrollIntoView({ behavior: "smooth" });
+              }}
               className="group"
             >
-              Reserve Your Date
+              Explore Our Menu
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
               variant="heroOutline"
               size="xl"
-              onClick={() => {
-                const element = document.querySelector("#venue");
-                if (element) element.scrollIntoView({ behavior: "smooth" });
-              }}
+              onClick={scrollToBooking}
               className="border-cream/80 text-cream hover:bg-cream hover:text-charcoal"
             >
-              Explore Our Venue
+              Book a Table or Event
             </Button>
           </motion.div>
 
@@ -99,9 +98,9 @@ const HeroSection = () => {
             className="mt-16 grid grid-cols-3 gap-8 max-w-xl mx-auto"
           >
             {[
-              { value: "500+", label: "Events Hosted" },
-              { value: "10+", label: "Years Experience" },
-              { value: "98%", label: "Happy Clients" },
+              { value: "5+", label: "Years Serving" },
+              { value: "100+", label: "Events Hosted" },
+              { value: "98%", label: "Happy Guests" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="font-display text-3xl md:text-4xl text-gold font-bold">
