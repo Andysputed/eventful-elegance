@@ -153,7 +153,7 @@ const BookingForm = () => {
                 href="tel:+1234567890"
                 className="text-gold font-bold text-xl hover:text-gold-light transition-colors"
               >
-                +1 (234) 567-890
+                +254 742 776 921
               </a>
             </div>
           </motion.div>
