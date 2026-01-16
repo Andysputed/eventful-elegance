@@ -60,7 +60,7 @@ const WhyChooseUs = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="text-gold font-medium uppercase tracking-wider text-sm">
-            Why Grand Vista
+            Why Bamboo Woods?
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mt-3 mb-4">
             Your Perfect Event, <span className="text-gold">Guaranteed</span>

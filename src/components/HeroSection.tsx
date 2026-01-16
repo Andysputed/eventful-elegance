@@ -37,6 +37,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="inline-flex items-center gap-2 bg-cream/90 backdrop-blur-sm px-4 py-2 rounded-full mb-8"
+            style={{ marginTop: '3cm' }}
           >
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
