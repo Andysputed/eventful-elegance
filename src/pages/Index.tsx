@@ -4,7 +4,7 @@ import DiningSection from "@/components/DiningSection";
 import VenueSection from "@/components/VenueSection";
 import EventsSection from "@/components/EventsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import TestimonialsSection from "@/components/TestimonialsSection";
+// import AboutUsSection from "@/components/About us";
 import BookingForm from "@/components/BookingForm";
 import AccommodationNotice from "@/components/AccommodationNotice";
 import Footer from "@/components/Footer";
@@ -19,7 +19,7 @@ const Index = () => {
         <VenueSection />
         <EventsSection />
         <WhyChooseUs />
-        <TestimonialsSection />
+        {/* <AboutUsSection /> */}
         <BookingForm />
         <AccommodationNotice />
       </main>

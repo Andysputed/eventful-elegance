@@ -113,9 +113,9 @@ const Footer = () => {
               <li className="flex gap-3">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
                 <span className="text-cream/70">
-                  123 Garden Lane,
+                  Nakuru-Marigat Road-(Simba Petrol Station) ,
                   <br />
-                  Your City, YC 12345
+                  Nakuru, Kenya 20100
                 </span>
               </li>
               <li className="flex gap-3">
@@ -124,7 +124,7 @@ const Footer = () => {
                   href="tel:+1234567890"
                   className="text-cream/70 hover:text-gold transition-colors"
                 >
-                  +1 (234) 567-890
+                  +254 742-776-921
                 </a>
               </li>
               <li className="flex gap-3">
@@ -139,7 +139,7 @@ const Footer = () => {
               <li className="flex gap-3">
                 <Clock className="w-5 h-5 text-gold flex-shrink-0" />
                 <span className="text-cream/70">
-                  Mon - Sun: 9:00 AM - 9:00 PM
+                  Mon - Sun: 8:00 AM - 8:00 PM
                 </span>
               </li>
             </ul>

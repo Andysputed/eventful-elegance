@@ -40,7 +40,7 @@ const HeroSection = () => {
             style={{ marginTop: '3cm' }}
           >
             <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-gold text-gold" />
               ))}
             </div>
