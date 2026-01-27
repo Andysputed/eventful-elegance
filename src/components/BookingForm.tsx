@@ -11,8 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, Users, Sparkles, CheckCircle } from "lucide-react";
+import { Calendar, Users, Sparkles, CheckCircle, Loader2 } from "lucide-react"; // Added Loader2
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase"; // Import our new client
 
 const reservationTypes = [
   "Table Reservation",
@@ -35,6 +36,8 @@ const guestRanges = [
 
 const BookingForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // New loading state
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,7 +48,7 @@ const BookingForm = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate form
@@ -57,12 +60,44 @@ const BookingForm = () => {
       return;
     }
 
-    // Simulate form submission
-    setIsSubmitted(true);
-    toast({
-      title: "Reservation Request Sent!",
-      description: "We'll confirm your booking within 24 hours.",
-    });
+    setIsLoading(true);
+
+    try {
+      // Send data to Supabase
+      const { error } = await supabase
+        .from('bookings')
+        .insert([
+          { 
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            type: formData.reservationType,
+            date: formData.eventDate,
+            guests: formData.guests,
+            message: formData.message,
+            status: 'pending' // Default status for new bookings
+          },
+        ]);
+
+      if (error) throw error;
+
+      // Success
+      setIsSubmitted(true);
+      toast({
+        title: "Reservation Request Sent!",
+        description: "We'll confirm your booking within 24 hours.",
+      });
+
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSubmitted) {
@@ -87,7 +122,18 @@ const BookingForm = () => {
             <Button
               variant="hero"
               size="lg"
-              onClick={() => setIsSubmitted(false)}
+              onClick={() => {
+                setIsSubmitted(false);
+                setFormData({
+                  name: "",
+                  email: "",
+                  phone: "",
+                  reservationType: "",
+                  eventDate: "",
+                  guests: "",
+                  message: "",
+                });
+              }}
             >
               Make Another Reservation
             </Button>
@@ -101,7 +147,7 @@ const BookingForm = () => {
     <section id="booking" className="py-24 bg-gradient-hero">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Content */}
+          {/* Content (Left Side) - Kept exactly as you had it */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -120,7 +166,6 @@ const BookingForm = () => {
               to you promptly.
             </p>
 
-            {/* Benefits */}
             <div className="space-y-4 mb-8">
               {[
                 { icon: Calendar, text: "Easy online reservations" },
@@ -143,14 +188,13 @@ const BookingForm = () => {
               ))}
             </div>
 
-            {/* Contact Info */}
             <div className="bg-charcoal text-cream p-6 rounded-xl">
               <h4 className="font-display text-lg font-semibold mb-3">
                 Prefer to Call?
               </h4>
               <p className="text-cream/80 mb-2">Reach us directly:</p>
               <a
-                href="tel:+1234567890"
+                href="tel:+254742776921"
                 className="text-gold font-bold text-xl hover:text-gold-light transition-colors"
               >
                 +254 742 776 921
@@ -158,7 +202,7 @@ const BookingForm = () => {
             </div>
           </motion.div>
 
-          {/* Form */}
+          {/* Form (Right Side) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -170,7 +214,6 @@ const BookingForm = () => {
               className="bg-card rounded-2xl p-8 shadow-elevated"
             >
               <div className="space-y-6">
-                {/* Name */}
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-charcoal font-medium">
                     Full Name *
@@ -183,10 +226,10 @@ const BookingForm = () => {
                       setFormData({ ...formData, name: e.target.value })
                     }
                     className="h-12"
+                    disabled={isLoading}
                   />
                 </div>
 
-                {/* Email & Phone */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-charcoal font-medium">
@@ -201,6 +244,7 @@ const BookingForm = () => {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       className="h-12"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="space-y-2">
@@ -210,17 +254,17 @@ const BookingForm = () => {
                     <Input
                       id="phone"
                       type="tel"
-                      placeholder="+1 (234) 567-890"
+                      placeholder="+254..."
                       value={formData.phone}
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       className="h-12"
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
 
-                {/* Reservation Type */}
                 <div className="space-y-2">
                   <Label className="text-charcoal font-medium">
                     Reservation Type *
@@ -230,6 +274,7 @@ const BookingForm = () => {
                     onValueChange={(value) =>
                       setFormData({ ...formData, reservationType: value })
                     }
+                    disabled={isLoading}
                   >
                     <SelectTrigger className="h-12">
                       <SelectValue placeholder="What are you booking for?" />
@@ -244,7 +289,6 @@ const BookingForm = () => {
                   </Select>
                 </div>
 
-                {/* Date & Guests */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="date" className="text-charcoal font-medium">
@@ -258,6 +302,7 @@ const BookingForm = () => {
                         setFormData({ ...formData, eventDate: e.target.value })
                       }
                       className="h-12"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="space-y-2">
@@ -269,6 +314,7 @@ const BookingForm = () => {
                       onValueChange={(value) =>
                         setFormData({ ...formData, guests: value })
                       }
+                      disabled={isLoading}
                     >
                       <SelectTrigger className="h-12">
                         <SelectValue placeholder="How many guests?" />
@@ -284,7 +330,6 @@ const BookingForm = () => {
                   </div>
                 </div>
 
-                {/* Message */}
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-charcoal font-medium">
                     Special Requests
@@ -297,12 +342,25 @@ const BookingForm = () => {
                       setFormData({ ...formData, message: e.target.value })
                     }
                     className="min-h-[100px] resize-none"
+                    disabled={isLoading}
                   />
                 </div>
 
-                {/* Submit */}
-                <Button type="submit" variant="hero" size="xl" className="w-full">
-                  Submit Reservation
+                <Button 
+                  type="submit" 
+                  variant="hero" 
+                  size="xl" 
+                  className="w-full"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending Request...
+                    </>
+                  ) : (
+                    "Submit Reservation"
+                  )}
                 </Button>
 
                 <p className="text-center text-muted-foreground text-sm">
