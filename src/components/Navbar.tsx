@@ -27,7 +27,8 @@ const Navbar = () => {
     { href: "#events", label: "Events" },
     { href: "#why-us", label: "Why Us" },
     { href: "/about", label: "About Us", isRoute: true },
-    { href: "/menu", label: "Menu", isRoute: true }, // Added link to your new menu page
+    { href: "/menu", label: "Menu", isRoute: true }, 
+    { href: "#playground", label: "Playground" },
   ];
 
   // Updated to handle scrolling even if we are on a different page
