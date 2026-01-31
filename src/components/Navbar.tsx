@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom"; // Added for smart routing
 
 const NAV_OFFSET = 96;
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const navigate = useNavigate(); //
+  const location = useLocation(); //
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,7 +27,28 @@ const Navbar = () => {
     { href: "#events", label: "Events" },
     { href: "#why-us", label: "Why Us" },
     { href: "/about", label: "About Us", isRoute: true },
+    { href: "/menu", label: "Menu", isRoute: true }, // Added link to your new menu page
   ];
+
+  // Updated to handle scrolling even if we are on a different page
+  const handleNavInteraction = (href: string, isRoute?: boolean) => {
+    if (isRoute) {
+      navigate(href);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    if (location.pathname !== "/") {
+      // If we aren't home, go home first, then scroll
+      navigate("/");
+      setTimeout(() => {
+        scrollToSection(href);
+      }, 100);
+    } else {
+      // If we are already home, just scroll
+      scrollToSection(href);
+    }
+  };
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -60,8 +85,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
           
           <motion.a
-            href="#"
-            className="relative z-20 flex items-center h-full py-1"
+            onClick={() => navigate("/")}
+            className="relative z-20 flex items-center h-full py-1 cursor-pointer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -84,37 +109,23 @@ const Navbar = () => {
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
-              link.isRoute ? (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`text-lg font-medium transition-colors ${
-                    isScrolled
-                      ? "text-charcoal/80 hover:text-gold"
-                      : "text-white hover:text-gold"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className={`text-lg font-medium transition-colors ${
-                    isScrolled
-                      ? "text-charcoal/80 hover:text-gold"
-                      : "text-white hover:text-gold"
-                  }`}
-                >
-                  {link.label}
-                </button>
-              )
+              <button
+                key={link.href}
+                onClick={() => handleNavInteraction(link.href, link.isRoute)}
+                className={`text-lg font-medium transition-colors ${
+                  isScrolled
+                    ? "text-charcoal/80 hover:text-gold"
+                    : "text-white hover:text-gold"
+                }`}
+              >
+                {link.label}
+              </button>
             ))}
 
             <Button
               variant="hero"
               size="lg"
-              onClick={() => scrollToSection("#booking")}
+              onClick={() => handleNavInteraction("#booking")}
             >
               Make a Reservation
             </Button>
@@ -143,30 +154,20 @@ const Navbar = () => {
             >
               <div className="mt-4 rounded-2xl bg-white/95 backdrop-blur-lg shadow-xl px-6 py-6 space-y-4">
                 {navLinks.map(link => (
-                  link.isRoute ? (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="block w-full text-left text-lg font-medium text-charcoal/80 hover:text-gold py-3"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <button
-                      key={link.href}
-                      onClick={() => scrollToSection(link.href)}
-                      className="block w-full text-left text-lg font-medium text-charcoal/80 hover:text-gold py-3"
-                    >
-                      {link.label}
-                    </button>
-                  )
+                  <button
+                    key={link.href}
+                    onClick={() => handleNavInteraction(link.href, link.isRoute)}
+                    className="block w-full text-left text-lg font-medium text-charcoal/80 hover:text-gold py-3"
+                  >
+                    {link.label}
+                  </button>
                 ))}
 
                 <Button
                   variant="hero"
                   size="lg"
                   className="w-full mt-4"
-                  onClick={() => scrollToSection("#booking")}
+                  onClick={() => handleNavInteraction("#booking")}
                 >
                   Make a Reservation
                 </Button>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Utensils, ChefHat, Clock, Leaf, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Added for navigation
 import restaurantImage from "@/assets/restaurant.jpg";
 
 const diningFeatures = [
@@ -27,6 +28,8 @@ const diningFeatures = [
 ];
 
 const DiningSection = () => {
+  const navigate = useNavigate(); // Hook to change pages
+
   return (
     <section id="dining" className="py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -89,8 +92,12 @@ const DiningSection = () => {
               >
                 Reserve a Table
               </Button>
-              <Button variant="elegant" size="lg">
-                View Our Menu
+              <Button 
+                variant="elegant" 
+                size="lg"
+                onClick={() => navigate("/menu")} // Navigate to the new Menu page
+              >
+                View Full Menu
               </Button>
             </div>
           </motion.div>
