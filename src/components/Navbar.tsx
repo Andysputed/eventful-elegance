@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom"; // Added for smart routing
+import { useNavigate, useLocation } from "react-router-dom"; 
 
 const NAV_OFFSET = 96;
 
@@ -10,8 +10,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  const navigate = useNavigate(); //
-  const location = useLocation(); //
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,17 +21,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // --- UPDATED LINKS (Removed "Why Us") ---
   const navLinks = [
     { href: "#dining", label: "Restaurant" },
     { href: "#venue", label: "Spaces" },
     { href: "#events", label: "Events" },
-    { href: "#why-us", label: "Why Us" },
+    // { href: "#why-us", label: "Why Us" }, <--- REMOVED THIS LINE
     { href: "/about", label: "About Us", isRoute: true },
     { href: "/menu", label: "Menu", isRoute: true }, 
     { href: "#playground", label: "Playground" },
   ];
 
-  // Updated to handle scrolling even if we are on a different page
   const handleNavInteraction = (href: string, isRoute?: boolean) => {
     if (isRoute) {
       navigate(href);
@@ -40,13 +40,11 @@ const Navbar = () => {
     }
 
     if (location.pathname !== "/") {
-      // If we aren't home, go home first, then scroll
       navigate("/");
       setTimeout(() => {
         scrollToSection(href);
       }, 100);
     } else {
-      // If we are already home, just scroll
       scrollToSection(href);
     }
   };

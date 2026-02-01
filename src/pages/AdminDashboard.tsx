@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader2, LogOut, Plus, Trash2, Check, X, RotateCcw, Pencil, Search, AlertCircle, Send } from "lucide-react";
+import { 
+  Loader2, LogOut, Plus, Trash2, Check, X, RotateCcw, 
+  Pencil, Search, AlertCircle, Send, Phone, Mail 
+} from "lucide-react"; // Added Phone and Mail icons
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -45,7 +48,7 @@ const AdminDashboard = () => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   
-  // --- NEW: STATE FOR REJECTION MODAL ---
+  // --- STATE FOR REJECTION MODAL ---
   const [rejectingBooking, setRejectingBooking] = useState<Booking | null>(null);
   const [rejectionReason, setRejectionReason] = useState("fully_booked");
 
@@ -74,7 +77,6 @@ const AdminDashboard = () => {
 
   // --- BOOKING LOGIC ---
   
-  // 1. Confirm is instant
   const confirmBooking = async (id: number) => {
     const { error } = await supabase.from('bookings').update({ status: 'confirmed' }).eq('id', id);
     if (!error) {
@@ -85,7 +87,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // 2. Undo is instant
   const undoStatus = async (id: number) => {
     const { error } = await supabase.from('bookings').update({ status: 'pending' }).eq('id', id);
     if (!error) {
@@ -94,33 +95,63 @@ const AdminDashboard = () => {
     }
   };
 
-  // 3. REJECT triggers the Modal (doesn't save yet)
   const initiateRejection = (booking: Booking) => {
     setRejectingBooking(booking);
-    setRejectionReason("fully_booked"); // Default reason
+    setRejectionReason("fully_booked"); 
   };
 
-  // 4. FINALIZE REJECTION (Called from Modal)
+  const getPoliteMessage = () => {
+    if (rejectionReason === 'fully_booked') {
+      return `Dear ${rejectingBooking?.name}, thank you for choosing Bamboo Woods. Unfortunately, we are fully booked for ${new Date(rejectingBooking?.date || "").toLocaleDateString()}. We sincerely apologize and hope to host you another time.`;
+    }
+    return `Dear ${rejectingBooking?.name}, unfortunately we cannot fulfill your reservation request at this time.`;
+  };
+
   const completeRejection = async () => {
     if (!rejectingBooking) return;
 
-    // In a real app, here is where you would trigger the email API
-    // await sendEmail(rejectingBooking.email, rejectionMessage);
+    const message = getPoliteMessage();
+    const loadingToast = toast.loading("Sending email & updating status...");
 
-    const { error } = await supabase.from('bookings').update({ status: 'cancelled' }).eq('id', rejectingBooking.id);
+    try {
+      // Trigger the Email Function
+      const { error: fnError } = await supabase.functions.invoke('send-rejection', {
+        body: {
+          email: rejectingBooking.email,
+          name: rejectingBooking.name,
+          message: message,
+          subject: rejectionReason === 'fully_booked' ? 'Reservation Update: Fully Booked' : 'Regarding your reservation'
+        }
+      });
 
-    if (!error) {
-      // Show what happened
-      if (rejectionReason === 'fully_booked') {
-        toast.success(`Guest notified: "Fully Booked" 🚫`);
-      } else {
-        toast.success(`Booking Rejected ❌`);
+      if (fnError) {
+        console.error("Email failed:", fnError);
+        toast.dismiss(loadingToast);
+        toast.error("Could not send email, but cancelling booking...");
       }
 
-      setBookings((prev) => prev.map((b) => b.id === rejectingBooking.id ? { ...b, status: 'cancelled' } : b));
-      setRejectingBooking(null); // Close modal
-    } else {
-      toast.error("Error updating status");
+      const { error: dbError } = await supabase
+        .from('bookings')
+        .update({ status: 'cancelled' })
+        .eq('id', rejectingBooking.id);
+
+      toast.dismiss(loadingToast);
+
+      if (!dbError) {
+        if (rejectionReason === 'fully_booked') {
+          toast.success(`Guest notified & Booking Cancelled 🚫`);
+        } else {
+          toast.success(`Booking Rejected ❌`);
+        }
+        setBookings((prev) => prev.map((b) => b.id === rejectingBooking.id ? { ...b, status: 'cancelled' } : b));
+        setRejectingBooking(null); 
+      } else {
+        toast.error("Database error");
+      }
+
+    } catch (err) {
+      toast.dismiss(loadingToast);
+      toast.error("Something went wrong");
     }
   };
 
@@ -188,14 +219,6 @@ const AdminDashboard = () => {
     navigate("/admin-login");
   };
 
-  // --- POLITE MESSAGE GENERATOR ---
-  const getPoliteMessage = () => {
-    if (rejectionReason === 'fully_booked') {
-      return `Dear ${rejectingBooking?.name}, thank you for choosing Bamboo Woods. Unfortunately, we are fully booked for ${new Date(rejectingBooking?.date || "").toLocaleDateString()}. We sincerely apologize and hope to host you another time.`;
-    }
-    return `Dear ${rejectingBooking?.name}, unfortunately we cannot fulfill your reservation request at this time.`;
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8 relative">
       
@@ -203,7 +226,6 @@ const AdminDashboard = () => {
       {rejectingBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
-            {/* Modal Header */}
             <div className="bg-red-50 p-4 border-b border-red-100 flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600">
                 <AlertCircle className="h-5 w-5" />
@@ -213,8 +235,6 @@ const AdminDashboard = () => {
                 <p className="text-xs text-red-600 font-medium">This action cannot be undone.</p>
               </div>
             </div>
-
-            {/* Modal Body */}
             <div className="p-6 space-y-4">
               <div>
                 <Label className="text-gray-600">Reason for rejection</Label>
@@ -228,7 +248,6 @@ const AdminDashboard = () => {
                   <option value="other">📝 Other</option>
                 </select>
               </div>
-
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Message Preview</span>
@@ -239,25 +258,15 @@ const AdminDashboard = () => {
                 </p>
               </div>
             </div>
-
-            {/* Modal Footer */}
             <div className="p-4 bg-gray-50 flex justify-end gap-3 border-t border-gray-100">
-              <Button variant="ghost" onClick={() => setRejectingBooking(null)}>
-                Cancel
-              </Button>
-              <Button 
-                variant="destructive" 
-                className="bg-red-600 hover:bg-red-700 gap-2"
-                onClick={completeRejection}
-              >
+              <Button variant="ghost" onClick={() => setRejectingBooking(null)}>Cancel</Button>
+              <Button variant="destructive" className="bg-red-600 hover:bg-red-700 gap-2" onClick={completeRejection}>
                 <Send className="h-4 w-4" /> Send & Decline
               </Button>
             </div>
           </div>
         </div>
       )}
-      {/* --- END MODAL --- */}
-
 
       {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -298,7 +307,6 @@ const AdminDashboard = () => {
       ) : activeTab === "bookings" ? (
         /* BOOKINGS TABLE */
         <div>
-          {/* SEARCH BAR */}
           <div className="mb-6 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input 
@@ -316,6 +324,7 @@ const AdminDashboard = () => {
                   <tr>
                     <th className="px-6 py-4">Date</th>
                     <th className="px-6 py-4">Customer</th>
+                    <th className="px-6 py-4">Contact Info</th> {/* NEW COLUMN */}
                     <th className="px-6 py-4">Status</th>
                     <th className="px-6 py-4 text-right">Actions</th>
                   </tr>
@@ -325,16 +334,36 @@ const AdminDashboard = () => {
                     .filter(b => b.name.toLowerCase().includes(searchTerm.toLowerCase()) || b.phone.includes(searchTerm))
                     .map((booking) => (
                     <tr key={booking.id} className="hover:bg-gray-50/50">
-                      <td className="px-6 py-4">{new Date(booking.date).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{new Date(booking.date).toLocaleDateString()}</td>
                       <td className="px-6 py-4">
-                        <div className="font-medium">{booking.name}</div>
+                        <div className="font-medium text-gray-900">{booking.name}</div>
                         <div className="text-xs text-gray-500">{booking.guests} guests • {booking.type}</div>
+                        {booking.message && (
+                          <div className="mt-1 text-xs text-blue-600 bg-blue-50 p-1 rounded inline-block">
+                            "{booking.message.substring(0, 30)}..."
+                          </div>
+                        )}
                       </td>
+                      
+                      {/* NEW CONTACT INFO COLUMN */}
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          booking.status === 'confirmed' ? 'bg-green-100 text-green-800' : 
-                          booking.status === 'cancelled' ? 'bg-red-100 text-red-800' : 
-                          'bg-yellow-100 text-yellow-800'
+                        <div className="flex flex-col gap-1.5">
+                          <a href={`tel:${booking.phone}`} className="flex items-center gap-2 text-xs font-medium text-gray-700 hover:text-blue-600 transition-colors">
+                            <Phone className="h-3 w-3 text-gray-400" />
+                            {booking.phone}
+                          </a>
+                          <a href={`mailto:${booking.email}`} className="flex items-center gap-2 text-xs text-gray-500 hover:text-blue-600 transition-colors">
+                            <Mail className="h-3 w-3 text-gray-400" />
+                            {booking.email.length > 20 ? booking.email.substring(0, 18) + '...' : booking.email}
+                          </a>
+                        </div>
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                          booking.status === 'confirmed' ? 'bg-green-100 text-green-700 border border-green-200' : 
+                          booking.status === 'cancelled' ? 'bg-red-50 text-red-700 border border-red-100' : 
+                          'bg-yellow-50 text-yellow-700 border border-yellow-200'
                         }`}>
                           {booking.status}
                         </span>
@@ -382,17 +411,13 @@ const AdminDashboard = () => {
       ) : (
         /* MENU MANAGEMENT */
         <div className="grid gap-8 md:grid-cols-3">
-          {/* Add/Edit Form */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-fit">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold text-lg">{editingId ? "Edit Item" : "Add New Item"}</h3>
               {editingId && (
-                <Button variant="ghost" size="sm" onClick={resetForm} className="text-xs h-6 text-gray-500">
-                  Cancel
-                </Button>
+                <Button variant="ghost" size="sm" onClick={resetForm} className="text-xs h-6 text-gray-500">Cancel</Button>
               )}
             </div>
-            
             <form onSubmit={handleSaveItem} className="space-y-4">
               <div>
                 <Label>Item Name</Label>
@@ -441,7 +466,6 @@ const AdminDashboard = () => {
             </form>
           </div>
 
-          {/* Menu List */}
           <div className="md:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-50 text-gray-500 font-medium">
