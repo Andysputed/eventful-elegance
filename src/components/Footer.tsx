@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter } from "lucide-react";
+// 1. Correct Import: Link comes from react-router-dom
+import { Link } from "react-router-dom"; 
+// 2. Added 'Lock' for the icon, removed 'Link' to avoid conflicts
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Lock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -121,7 +124,7 @@ const Footer = () => {
               <li className="flex gap-3">
                 <Phone className="w-5 h-5 text-gold flex-shrink-0" />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+254742776921"
                   className="text-cream/70 hover:text-gold transition-colors"
                 >
                   +254 742-776-921
@@ -152,6 +155,17 @@ const Footer = () => {
             <p className="text-cream/50 text-sm">
               © {currentYear} Bamboo Woods. All rights reserved.
             </p>
+            
+            {/* --- FIX IS HERE --- */}
+            <Link 
+              to="/admin-login" 
+              className="flex items-center gap-2 text-cream/30 hover:text-gold text-xs transition-colors"
+            >
+              <Lock className="w-3 h-3" />
+              <span>Staff Login</span>
+            </Link>
+            {/* ------------------- */}
+
             <div className="flex gap-6 text-sm text-cream/50">
               <a href="#" className="hover:text-gold transition-colors">
                 Privacy Policy

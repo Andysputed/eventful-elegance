@@ -8,6 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/components/AuthProvider";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
+// NEW IMPORT
+import ScrollToTop from "@/components/ScrollToTop"; 
+
 // Pages
 import MenuPage from "./pages/Menu";
 import Index from "./pages/Index";
@@ -20,11 +23,15 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider> {/* Wrap the app in Auth Context */}
+    <AuthProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          {/* --- FIX ADDED HERE --- */}
+          <ScrollToTop /> 
+          {/* ---------------------- */}
+          
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Index />} />
@@ -35,7 +42,6 @@ const App = () => (
             {/* Protected Admin Routes */}
             <Route element={<ProtectedRoute />}>
               <Route path="/admin" element={<AdminDashboard />} />
-              {/* You can add more protected routes here, like /admin/menu */}
             </Route>
 
             {/* Catch-all Route */}
