@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
-import { Wind, ShieldCheck, Smile, Car, RotateCw } from "lucide-react";
+import { FerrisWheel, Wind, ShieldCheck, Smile, Car } from "lucide-react";
 
 const playgroundFeatures = [
   {
-    icon: RotateCw,
-    title: "Spinning Zones",
-    description: "High-energy spinning equipment for endless dizzying fun.",
-  },
-  {
-    icon: Car,
-    title: "Racing Cars",
-    description: "Pedal-powered and play cars for our little speed champions.",
+    icon: FerrisWheel,
+    title: "Merry-Go-Rounds",
+    description: "Safe, spinning fun for the little ones to enjoy together.",
   },
   {
     icon: Wind,
     title: "Classic Swings",
-    description: "Standard forward and backward swings for all ages to enjoy.",
+    description: "Traditional forward and backward swings that kids love.",
+  },
+  {
+    icon: Car,
+    title: "Racing Cars",
+    description: "Exciting play cars for mini-drivers to race and explore.",
   },
   {
     icon: ShieldCheck,
-    title: "Safe & Secure",
-    description: "A monitored, family-friendly area designed for peace of mind.",
+    title: "Safe Environment",
+    description: "Fenced and monitored area so parents can dine in peace.",
   },
 ];
 
@@ -41,7 +41,7 @@ const PlaygroundSection = () => {
           </h2>
           <p className="text-muted-foreground text-lg">
             Let the children explore our secure playground while you enjoy your meal. 
-            From high-flying swings to racing cars and spinning zones, we have it all.
+            From high-flying swings to racing cars and merry-go-rounds, we have it all.
           </p>
         </div>
 
@@ -69,51 +69,43 @@ const PlaygroundSection = () => {
 
         {/* --- IMAGE PLACEHOLDERS --- */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Racing Cars Placeholder */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="group relative h-80 rounded-2xl overflow-hidden bg-stone-200 border-2 border-dashed border-stone-300"
+            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
           >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-400 p-6 text-center">
-              <Car className="w-12 h-12 mb-4 opacity-20" />
-              <span className="font-display font-bold text-lg uppercase tracking-wider">Racing Cars Photo</span>
-              <p className="text-xs mt-2 italic">Suggested: Action shot of kids in play cars</p>
+            {/* Replace 'src' with your Racing Car photo path later */}
+            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
+              <span className="font-display font-bold">RACING CARS PHOTO</span>
             </div>
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-            <div className="absolute bottom-6 left-6 text-white font-bold drop-shadow-md">Mini Racers Track</div>
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            <div className="absolute bottom-4 left-4 text-white font-bold">Mini Racers</div>
           </motion.div>
 
-          {/* Swings Placeholder */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="group relative h-80 rounded-2xl overflow-hidden bg-stone-200 border-2 border-dashed border-stone-300"
+            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
           >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-400 p-6 text-center">
-              <Wind className="w-12 h-12 mb-4 opacity-20" />
-              <span className="font-display font-bold text-lg uppercase tracking-wider">Swings Photo</span>
-              <p className="text-xs mt-2 italic">Suggested: Wide shot of the swing sets</p>
+            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
+              <span className="font-display font-bold">SWINGS PHOTO</span>
             </div>
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-            <div className="absolute bottom-6 left-6 text-white font-bold drop-shadow-md">High-Flying Fun</div>
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            <div className="absolute bottom-4 left-4 text-white font-bold">High-Flying Swings</div>
           </motion.div>
 
-          {/* Spinning Zones Placeholder */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="group relative h-80 rounded-2xl overflow-hidden bg-stone-200 border-2 border-dashed border-stone-300"
+            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
           >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-400 p-6 text-center">
-              <RotateCw className="w-12 h-12 mb-4 opacity-20" />
-              <span className="font-display font-bold text-lg uppercase tracking-wider">Spinning Zones Photo</span>
-              <p className="text-xs mt-2 italic">Suggested: Colorful spinning equipment</p>
+            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
+              <span className="font-display font-bold">MERRY-GO-ROUND PHOTO</span>
             </div>
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-            <div className="absolute bottom-6 left-6 text-white font-bold drop-shadow-md">Spinning Adventures</div>
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            <div className="absolute bottom-4 left-4 text-white font-bold">Spinning Fun</div>
           </motion.div>
         </div>
       </div>

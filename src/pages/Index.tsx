@@ -5,7 +5,7 @@ import VenueSection from "@/components/VenueSection";
 import EventsSection from "@/components/EventsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import PlaygroundSection from "@/components/PlaygroundSection";
-// import AboutUsSection from "@/components/About us";
+//import AboutUsSection from "@/components/About us";
 import BookingForm from "@/components/BookingForm";
 import AccommodationNotice from "@/components/AccommodationNotice";
 import Footer from "@/components/Footer";
