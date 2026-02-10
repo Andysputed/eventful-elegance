@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom"; 
+import bambooLogo from '../assets/bamboo-logo.png';
 
 const NAV_OFFSET = 96;
 
@@ -92,8 +93,8 @@ const Navbar = () => {
           >
             <div className="relative w-auto" style={{ height: '200%' }}>
               <img
-                src="/bambooLogo.png"
-                alt="Bamboo Woods Logo"
+                 src={bambooLogo} 
+                 alt="Bamboo Woods Logo"
                 className="h-full w-auto object-contain drop-shadow-2xl"
                 style={{ 
                   filter: isScrolled 
