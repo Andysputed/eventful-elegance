@@ -4,7 +4,7 @@ import { FerrisWheel, Wind, ShieldCheck, Smile, Car } from "lucide-react";
 const playgroundFeatures = [
   {
     icon: FerrisWheel,
-    title: "Merry-Go-Rounds",
+    title: "Spinners",
     description: "Safe, spinning fun for the little ones to enjoy together.",
   },
   {
@@ -41,7 +41,7 @@ const PlaygroundSection = () => {
           </h2>
           <p className="text-muted-foreground text-lg">
             Let the children explore our secure playground while you enjoy your meal. 
-            From high-flying swings to racing cars and merry-go-rounds, we have it all.
+            From high-flying swings to racing cars and spinners, we have it all.
           </p>
         </div>
 

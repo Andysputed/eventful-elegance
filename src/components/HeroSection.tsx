@@ -99,7 +99,7 @@ const HeroSection = () => {
             className="mt-16 grid grid-cols-3 gap-8 max-w-xl mx-auto"
           >
             {[
-              { value: "5+", label: "Years Serving" },
+              { value: "1+", label: "Years Serving" },
               { value: "100+", label: "Events Hosted" },
               { value: "98%", label: "Happy Guests" },
             ].map((stat, index) => (

@@ -92,7 +92,7 @@ const Navbar = () => {
           >
             <div className="relative w-auto" style={{ height: '200%' }}>
               <img
-                src="/src/assets/bambooLogo.png"
+                src="/bambooLogo.png"
                 alt="Bamboo Woods Logo"
                 className="h-full w-auto object-contain drop-shadow-2xl"
                 style={{ 
