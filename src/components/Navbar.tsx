@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
   const mobileQuickLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
+    { href: "/about", label: "About" },
     { href: "/menu", label: "Menu" },
     { href: "/playground", label: "Playground" },
   ];
@@ -111,14 +111,14 @@ const Navbar = () => {
           </motion.a>
 
           <div className="lg:hidden flex-1 min-w-0 flex items-center justify-center px-1">
-            <div className="grid grid-cols-4 w-full max-w-[300px] gap-1.5 text-[11px] sm:text-xs font-medium rounded-full px-2 sm:px-2.5 py-1.5 border border-white/25 bg-black/10 backdrop-blur-sm leading-none">
+            <div className="flex w-full max-w-[320px] items-center gap-3 overflow-x-auto whitespace-nowrap rounded-full px-2 sm:px-2.5 py-1.5 border border-white/25 bg-black/10 backdrop-blur-sm text-[11px] sm:text-xs font-medium leading-none">
               {mobileQuickLinks.map((link) => (
                 <NavLink
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `min-w-0 text-center whitespace-nowrap rounded-full px-2 py-1 transition-colors ${
+                    `shrink-0 text-center whitespace-nowrap rounded-full px-2.5 py-1 transition-colors ${
                       isScrolled
                         ? isActive
                           ? "text-gold bg-gold/10"
