@@ -117,19 +117,27 @@
 
 @layer base {
   html,
-  body,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+  }
+
   #root {
     width: 100%;
     max-width: 100%;
   }
 
-  * {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
