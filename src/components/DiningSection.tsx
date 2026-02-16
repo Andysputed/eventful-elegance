@@ -125,7 +125,7 @@ const DiningSection = () => {
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, type: "spring" }}
-              className="absolute -bottom-6 -left-6 bg-forest text-cream p-6 rounded-2xl shadow-elevated"
+              className="absolute -bottom-6 left-4 md:-left-6 bg-forest text-cream p-6 rounded-2xl shadow-elevated"
             >
               <div className="text-center">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />

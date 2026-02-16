@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Heart, Sparkles, Clock, Award, Headphones } from "lucide-react";
+import { Shield, Heart, Sparkles, Clock } from "lucide-react";
 
 const reasons = [
   {
@@ -25,18 +25,6 @@ const reasons = [
     title: "Stress-Free Planning",
     description:
       "Our all-in-one approach means one venue, one team, and one seamless experience from start to finish.",
-  },
-  {
-    icon: Award,
-    title: "Proven Excellence",
-    description:
-      "With 500+ successful events and glowing reviews, our track record speaks for itself.",
-  },
-  {
-    icon: Headphones,
-    title: "Dedicated Support",
-    description:
-      "Personal event coordinator assigned to you, available to answer questions and solve problems.",
   },
 ];
 

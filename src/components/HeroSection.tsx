@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ChevronDown, Star } from "lucide-react";
 import heroImage from "@/assets/hero-venue.jpg";
 
 const HeroSection = () => {
@@ -72,22 +72,22 @@ const HeroSection = () => {
             <Button
               variant="hero"
               size="xl"
-              onClick={() => {
-                const element = document.querySelector("#dining");
-                if (element) element.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="group"
+              onClick={scrollToBooking}
+              className="group shadow-gold"
             >
-              Explore Our Menu
+              Book a Table or Event
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
               variant="heroOutline"
               size="xl"
-              onClick={scrollToBooking}
+              onClick={() => {
+                const element = document.querySelector("#dining");
+                if (element) element.scrollIntoView({ behavior: "smooth" });
+              }}
               className="border-cream/80 text-cream hover:bg-cream hover:text-charcoal"
             >
-              Book a Table or Event
+              Explore Our Menu
             </Button>
           </motion.div>
 
@@ -119,14 +119,26 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-cream/50 rounded-full flex items-start justify-center p-2"
+        <motion.span
+          animate={{ opacity: [0.45, 0.95, 0.45] }}
+          transition={{ duration: 2.2, repeat: Infinity }}
+          className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-cream/75"
         >
-          <div className="w-1 h-2 bg-cream/80 rounded-full" />
+          Scroll to Explore
+        </motion.span>
+        <motion.div
+          animate={{ scaleY: [0.65, 1, 0.65], opacity: [0.45, 1, 0.45] }}
+          transition={{ duration: 1.8, repeat: Infinity }}
+          className="h-10 w-px bg-gradient-to-b from-gold/10 via-gold/80 to-cream/20 origin-top"
+        />
+        <motion.div
+          animate={{ y: [0, 7, 0], opacity: [0.55, 1, 0.55] }}
+          transition={{ duration: 1.6, repeat: Infinity }}
+          className="rounded-full bg-cream/10 p-1.5 backdrop-blur-sm"
+        >
+          <ChevronDown className="w-4 h-4 text-cream/90" />
         </motion.div>
       </motion.div>
     </section>

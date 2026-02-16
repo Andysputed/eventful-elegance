@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom"; 
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import bambooLogo from '../assets/bamboo-logo.png';
 
 const NAV_OFFSET = 96;
@@ -22,15 +22,19 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // --- UPDATED LINKS (Removed "Why Us") ---
   const navLinks = [
     { href: "#dining", label: "Restaurant" },
     { href: "#venue", label: "Spaces" },
     { href: "#events", label: "Events" },
-    // { href: "#why-us", label: "Why Us" }, <--- REMOVED THIS LINE
     { href: "/about", label: "About Us", isRoute: true },
-    { href: "/menu", label: "Menu", isRoute: true }, 
-    { href: "#playground", label: "Playground" },
+    { href: "/menu", label: "Menu", isRoute: true },
+    { href: "/playground", label: "Playground", isRoute: true },
+  ];
+  const mobileQuickLinks = [
+    { href: "/", label: "Home", mobileLabel: "Home" },
+    { href: "/about", label: "About Us", mobileLabel: "About" },
+    { href: "/menu", label: "Menu", mobileLabel: "Menu" },
+    { href: "/playground", label: "Playground", mobileLabel: "Play" },
   ];
 
   const handleNavInteraction = (href: string, isRoute?: boolean) => {
@@ -75,27 +79,27 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-500 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-lg shadow-lg border-b border-gold/10"
-          : "bg-gradient-to-b from-black/40 via-black/20 to-transparent"
+          ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gold/10"
+          : "bg-gradient-to-b from-black/55 via-black/35 to-transparent"
       }`}
     >
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
+      <div className="max-w-[1200px] mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="flex min-w-0 items-center justify-between gap-2 h-16 md:h-20 lg:h-24">
           
           <motion.a
             onClick={() => navigate("/")}
-            className="relative z-20 flex items-center h-full py-1 cursor-pointer"
+            className="relative z-20 flex items-center h-full py-0 cursor-pointer shrink-0"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="relative w-auto" style={{ height: '200%' }}>
+            <div className="relative h-full w-auto flex items-center">
               <img
                  src={bambooLogo} 
                  alt="Bamboo Woods Logo"
-                className="h-full w-auto object-contain drop-shadow-2xl"
+                className="h-[190%] md:h-[210%] lg:h-[198%] w-auto max-w-none object-contain drop-shadow-2xl"
                 style={{ 
                   filter: isScrolled 
                     ? 'drop-shadow(0 4px 12px rgba(184, 134, 11, 0.3))' 
@@ -105,6 +109,32 @@ const Navbar = () => {
             </div>
             <span className="sr-only">Bamboo Woods</span>
           </motion.a>
+
+          <div className="lg:hidden flex-1 min-w-0 flex items-center justify-center px-1">
+            <div className="grid grid-cols-4 w-full max-w-[250px] gap-1 overflow-hidden text-[10px] sm:text-xs font-medium rounded-full px-1.5 sm:px-2 py-1 border border-white/25 bg-black/10 backdrop-blur-sm leading-none">
+              {mobileQuickLinks.map((link) => (
+                <NavLink
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `min-w-0 overflow-hidden text-ellipsis text-center whitespace-nowrap rounded-full px-1.5 sm:px-2 py-1 transition-colors ${
+                      isScrolled
+                        ? isActive
+                          ? "text-gold bg-gold/10"
+                          : "text-charcoal/80 hover:text-gold"
+                        : isActive
+                          ? "text-gold-light bg-white/10"
+                          : "text-white/90 hover:text-gold-light"
+                    }`
+                  }
+                >
+                  <span className="sm:hidden">{link.mobileLabel ?? link.label}</span>
+                  <span className="hidden sm:inline">{link.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          </div>
 
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center gap-10">
@@ -125,18 +155,20 @@ const Navbar = () => {
             <Button
               variant="hero"
               size="lg"
+              className="shadow-gold"
               onClick={() => handleNavInteraction("#booking")}
             >
-              Make a Reservation
+              Reserve Now
             </Button>
           </div>
 
           {/* MOBILE TOGGLE */}
           <button
-            className={`lg:hidden p-2 rounded-lg ${
+            className={`lg:hidden p-2 rounded-lg shrink-0 ${
               isScrolled ? "text-charcoal" : "text-white"
             }`}
             onClick={() => setIsMobileMenuOpen(prev => !prev)}
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
@@ -166,10 +198,10 @@ const Navbar = () => {
                 <Button
                   variant="hero"
                   size="lg"
-                  className="w-full mt-4"
+                  className="w-full mt-4 shadow-gold"
                   onClick={() => handleNavInteraction("#booking")}
                 >
-                  Make a Reservation
+                  Reserve Now
                 </Button>
               </div>
             </motion.div>

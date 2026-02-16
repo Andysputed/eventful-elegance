@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
-// 1. Correct Import: Link comes from react-router-dom
-import { Link } from "react-router-dom"; 
-// 2. Added 'Lock' for the icon, removed 'Link' to avoid conflicts
+import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Lock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const quickLinks = [
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About Us" },
+    { to: "/menu", label: "Menu" },
+    { to: "/playground", label: "Playground" },
+    { to: "/#events", label: "Events" },
+    { to: "/#booking", label: "Reservations" },
+  ];
 
   return (
     <footer className="bg-charcoal text-cream">
@@ -17,9 +23,9 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <a href="#" className="font-display text-2xl font-bold inline-block mb-4">
+            <Link to="/" className="font-display text-2xl font-bold inline-block mb-4">
               <span className="text-gold">Bamboo</span>Woods
-            </a>
+            </Link>
             <p className="text-cream/70 mb-6 leading-relaxed">
               A charming restaurant with beautiful spaces for dining, 
               gatherings, and intimate celebrations.
@@ -57,20 +63,14 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {[
-                { href: "#dining", label: "Our Restaurant" },
-                { href: "#venue", label: "Spaces" },
-                { href: "#events", label: "Events" },
-                { href: "#testimonials", label: "Reviews" },
-                { href: "#booking", label: "Reservations" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+              {quickLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
                     className="text-cream/70 hover:text-gold transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -156,7 +156,6 @@ const Footer = () => {
               © {currentYear} Bamboo Woods. All rights reserved.
             </p>
             
-            {/* --- FIX IS HERE --- */}
             <Link 
               to="/admin-login" 
               className="flex items-center gap-2 text-cream/30 hover:text-gold text-xs transition-colors"
@@ -164,7 +163,6 @@ const Footer = () => {
               <Lock className="w-3 h-3" />
               <span>Staff Login</span>
             </Link>
-            {/* ------------------- */}
 
             <div className="flex gap-6 text-sm text-cream/50">
               <a href="#" className="hover:text-gold transition-colors">

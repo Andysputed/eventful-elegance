@@ -4,7 +4,6 @@ import DiningSection from "@/components/DiningSection";
 import VenueSection from "@/components/VenueSection";
 import EventsSection from "@/components/EventsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import PlaygroundSection from "@/components/PlaygroundSection";
 //import AboutUsSection from "@/components/About us";
 import BookingForm from "@/components/BookingForm";
 import AccommodationNotice from "@/components/AccommodationNotice";
@@ -17,7 +16,6 @@ const Index = () => {
       <main>
         <HeroSection />
         <DiningSection />
-        <PlaygroundSection />
         <VenueSection />
         <EventsSection />
         <WhyChooseUs />
