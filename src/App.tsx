@@ -16,6 +16,8 @@ import MenuPage from "./pages/Menu";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Playground from "./pages/Playground";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -39,6 +41,8 @@ const App = () => (
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/playground" element={<Playground />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
             <Route path="/admin-login" element={<AdminLogin />} />
 
             {/* Protected Admin Routes */}
