@@ -31,10 +31,10 @@ const Navbar = () => {
     { href: "/playground", label: "Playground", isRoute: true },
   ];
   const mobileQuickLinks = [
-    { href: "/", label: "Home", mobileLabel: "Home" },
-    { href: "/about", label: "About Us", mobileLabel: "About" },
-    { href: "/menu", label: "Menu", mobileLabel: "Menu" },
-    { href: "/playground", label: "Playground", mobileLabel: "Play" },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/menu", label: "Menu" },
+    { href: "/playground", label: "Playground" },
   ];
 
   const handleNavInteraction = (href: string, isRoute?: boolean) => {
@@ -111,14 +111,14 @@ const Navbar = () => {
           </motion.a>
 
           <div className="lg:hidden flex-1 min-w-0 flex items-center justify-center px-1">
-            <div className="grid grid-cols-4 w-full max-w-[250px] gap-1 overflow-hidden text-[10px] sm:text-xs font-medium rounded-full px-1.5 sm:px-2 py-1 border border-white/25 bg-black/10 backdrop-blur-sm leading-none">
+            <div className="grid grid-cols-4 w-full max-w-[300px] gap-1.5 text-[11px] sm:text-xs font-medium rounded-full px-2 sm:px-2.5 py-1.5 border border-white/25 bg-black/10 backdrop-blur-sm leading-none">
               {mobileQuickLinks.map((link) => (
                 <NavLink
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `min-w-0 overflow-hidden text-ellipsis text-center whitespace-nowrap rounded-full px-1.5 sm:px-2 py-1 transition-colors ${
+                    `min-w-0 text-center whitespace-nowrap rounded-full px-2 py-1 transition-colors ${
                       isScrolled
                         ? isActive
                           ? "text-gold bg-gold/10"
@@ -129,8 +129,7 @@ const Navbar = () => {
                     }`
                   }
                 >
-                  <span className="sm:hidden">{link.mobileLabel ?? link.label}</span>
-                  <span className="hidden sm:inline">{link.label}</span>
+                  {link.label}
                 </NavLink>
               ))}
             </div>
