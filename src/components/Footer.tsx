@@ -38,7 +38,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://www.tiktok.com/@bamboowoods"
+                href="https://www.tiktok.com/@bamboo.woods"
                 className="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-gold transition-colors"
               >
                 <svg
