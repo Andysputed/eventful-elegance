@@ -34,7 +34,7 @@ const Navbar = () => {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/menu", label: "Menu" },
-    { href: "/playground", label: "Playground" },
+    { href: "/playground", label: "Play" },
   ];
 
   const handleNavInteraction = (href: string, isRoute?: boolean) => {
@@ -79,7 +79,7 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gold/10"
           : "bg-gradient-to-b from-black/55 via-black/35 to-transparent"
@@ -111,14 +111,14 @@ const Navbar = () => {
           </motion.a>
 
           <div className="lg:hidden flex-1 min-w-0 flex items-center justify-center px-1">
-            <div className="flex w-full max-w-[320px] items-center gap-3 overflow-x-auto whitespace-nowrap rounded-full px-2 sm:px-2.5 py-1.5 border border-white/25 bg-black/10 backdrop-blur-sm text-[11px] sm:text-xs font-medium leading-none">
+            <div className="flex w-full min-w-0 flex-nowrap items-center justify-center gap-1.5 rounded-full px-1.5 py-1 border border-white/25 bg-black/10 backdrop-blur-sm text-[10px] font-medium tracking-tight leading-none">
               {mobileQuickLinks.map((link) => (
                 <NavLink
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `shrink-0 text-center whitespace-nowrap rounded-full px-2.5 py-1 transition-colors ${
+                    `text-center whitespace-nowrap rounded-full px-1 py-0.5 transition-colors ${
                       isScrolled
                         ? isActive
                           ? "text-gold bg-gold/10"
