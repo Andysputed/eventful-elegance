@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Lock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Lock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,10 +38,16 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@bamboowoods"
                 className="w-10 h-10 bg-cream/10 rounded-full flex items-center justify-center hover:bg-gold transition-colors"
               >
-                <Twitter className="w-5 h-5" />
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="w-5 h-5 fill-current"
+                >
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.13v13.58a2.8 2.8 0 1 1-2.8-2.8c.27 0 .53.04.77.1V9.7a5.93 5.93 0 1 0 5.16 5.88v-7a8 8 0 0 0 4.77 1.57V7.07c-.35 0-.69-.13-1-.38Z" />
+                </svg>
               </a>
             </div>
           </motion.div>
