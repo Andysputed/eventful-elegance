@@ -40,11 +40,7 @@ const HeroSection = () => {
             className="inline-flex items-center gap-2 bg-cream/90 backdrop-blur-sm px-4 py-2 rounded-full mb-8"
             style={{ marginTop: '3cm' }}
           >
-            <div className="flex gap-0.5">
-              {[...Array(4)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-gold text-gold" />
-              ))}
-            </div>
+            <GoogleReviews />
             <span className="text-charcoal font-medium text-sm">
               Loved by Our Community
             </span>

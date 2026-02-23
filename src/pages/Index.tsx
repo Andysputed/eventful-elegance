@@ -8,8 +8,6 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import BookingForm from "@/components/BookingForm";
 import AccommodationNotice from "@/components/AccommodationNotice";
 import Footer from "@/components/Footer";
-import GoogleReviews from '../components/GoogleReviews';
-
 
 const Index = () => {
   return (
@@ -21,7 +19,6 @@ const Index = () => {
         <VenueSection />
         <EventsSection />
         <WhyChooseUs />
-        <GoogleReviews />
         {/* <AboutUsSection /> */}
         <BookingForm />
         <AccommodationNotice />
