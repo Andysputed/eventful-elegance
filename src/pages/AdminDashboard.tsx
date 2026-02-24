@@ -607,8 +607,8 @@ const AdminDashboard = () => {
                   onChange={e => setNewItem({...newItem, category: e.target.value})}
                 >
                   <option>Main Course</option>
-                  <option>Starters</option>
-                  <option>Drinks</option>
+                  <option>Soft Drinks</option>
+                  <option>Beverages</option>
                   <option>Dessert</option>
                   <option>Snack</option>
                   <option>Breakfast</option>
