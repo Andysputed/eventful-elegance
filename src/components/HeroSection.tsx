@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, Star } from "lucide-react";
-import heroImage from "@/assets/hero-venue.jpg";
+import heroImage from "@/assets/bamboo-aerialview.webp";
 
 const HeroSection = () => {
   const scrollToBooking = () => {
@@ -18,7 +18,9 @@ const HeroSection = () => {
         <img
           src={heroImage}
           alt="Bamboo Woods Restaurant"
-          className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          className="w-full h-full object-cover object-center [image-rendering:auto] saturate-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/30 to-charcoal/60" />
       </div>

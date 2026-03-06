@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Check, TreePine, Users, Sparkles } from "lucide-react";
 import gazeboImage from "@/assets/gazebo.jpg";
 import corporateImage from "@/assets/corporate-event.jpg";
+import outdoorImage from "@/assets/outdoor.webp";
+import gardenAerialImage from "@/assets/garden-aerialview.webp";
 
 const features = [
   "Charming outdoor gazebos",
@@ -45,20 +47,22 @@ const VenueSection = () => {
         </motion.div>
 
         {/* Spaces Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {/* Gazebos Card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-shadow"
+            className="group bg-card rounded-2xl overflow-hidden shadow-soft shadow-sm hover:shadow-elevated hover:shadow-md transition-all duration-300 hover:-translate-y-1"
           >
             <div className="relative h-64">
               <img
                 src={gazeboImage}
                 alt="Outdoor Gazebos"
-                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover object-center [image-rendering:auto] contrast-[1.02] saturate-110 transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2 text-cream">
@@ -68,7 +72,7 @@ const VenueSection = () => {
             </div>
             <div className="p-6">
               <h4 className="font-display text-xl text-charcoal font-semibold mb-3">
-                Charming Outdoor Gazebos
+                Charming Gazebos
               </h4>
               <p className="text-muted-foreground mb-4">
                 Enjoy your meal surrounded by nature in our beautiful garden 
@@ -78,7 +82,7 @@ const VenueSection = () => {
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
-                  <span>2-10 guests per gazebo</span>
+                  <span>2-4 guests per gazebo</span>
                 </div>
               </div>
             </div>
@@ -90,13 +94,15 @@ const VenueSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-shadow"
+            className="group bg-card rounded-2xl overflow-hidden shadow-soft shadow-sm hover:shadow-elevated hover:shadow-md transition-all duration-300 hover:-translate-y-1"
           >
             <div className="relative h-64">
               <img
                 src={corporateImage}
                 alt="Meeting Rooms"
-                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover object-center [image-rendering:auto] contrast-[1.02] saturate-110 transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2 text-cream">
@@ -116,7 +122,85 @@ const VenueSection = () => {
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
-                  <span>Up to 30 guests</span>
+                  <span>8 to 10 guests</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Garden Oasis Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="group bg-card rounded-2xl overflow-hidden shadow-soft shadow-sm hover:shadow-elevated hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+          >
+            <div className="relative h-64">
+              <img
+                src={outdoorImage}
+                alt="The Garden Oasis"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover object-center [image-rendering:auto] contrast-[1.02] saturate-110 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2 text-cream">
+                <TreePine className="w-5 h-5" />
+                <span className="font-medium">Outdoor Seating</span>
+              </div>
+            </div>
+            <div className="bg-stone-50 p-6">
+              <h4 className="font-display text-xl text-charcoal font-semibold mb-3">
+                The Garden Oasis
+              </h4>
+              <p className="text-muted-foreground mb-4">
+                Escape the hustle and bustle and dine surrounded by nature. Our expansive, sun-dappled lawns offer the perfect open-air setting.
+              </p>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Users className="w-4 h-4" />
+                  <span>5 to 6 guests</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Our Garden Card (Larger) */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="group bg-card rounded-2xl overflow-hidden shadow-soft shadow-sm hover:shadow-elevated hover:shadow-md transition-all duration-300 hover:-translate-y-1 md:col-span-2 lg:col-span-2"
+          >
+            <div className="relative h-72 md:h-80">
+              <img
+                src={gardenAerialImage}
+                alt="Our Garden at Bamboo Woods"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover object-center [image-rendering:auto] contrast-[1.02] saturate-110 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2 text-cream">
+                <TreePine className="w-5 h-5" />
+                <span className="font-medium">Our Garden</span>
+              </div>
+            </div>
+            <div className="bg-stone-50 p-6 md:p-7">
+              <h4 className="font-display text-xl md:text-2xl text-charcoal font-semibold mb-3">
+                Our Garden
+              </h4>
+              <p className="text-muted-foreground mb-4">
+                Take in panoramic views of our lush green grounds from above. The
+                garden offers a calm, open-air space ideal for relaxed dining and
+                memorable gatherings.
+              </p>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Users className="w-4 h-4" />
+                  <span>Large group friendly</span>
                 </div>
               </div>
             </div>

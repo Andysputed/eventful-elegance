@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,7 @@ interface MenuItem {
 }
 
 const ITEMS_PER_PAGE = 10;
+const MENU_ITEMS_PER_PAGE = 6;
 const cardShell = "rounded-2xl border border-gold/15 bg-card/95 shadow-soft";
 const primaryAction =
   "bg-gradient-to-r from-gold to-gold-dark text-cream shadow-gold hover:shadow-elevated hover:scale-[1.01] active:scale-[0.99]";
@@ -62,6 +63,8 @@ const AdminDashboard = () => {
   // --- STATE FOR EDITING & SEARCH ---
   const [editingId, setEditingId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [menuSearchTerm, setMenuSearchTerm] = useState("");
+  const [menuPage, setMenuPage] = useState(1);
   
   // --- STATE FOR REJECTION MODAL ---
   const [rejectingBooking, setRejectingBooking] = useState<Booking | null>(null);
@@ -125,6 +128,38 @@ const AdminDashboard = () => {
   };
 
   const totalPages = Math.ceil(totalBookings / ITEMS_PER_PAGE);
+
+  const filteredMenuItems = useMemo(() => {
+    const query = menuSearchTerm.trim().toLowerCase();
+    if (!query) return menuItems;
+
+    return menuItems.filter((item) => {
+      const name = item.name.toLowerCase();
+      const category = item.category.toLowerCase();
+      return name.includes(query) || category.includes(query);
+    });
+  }, [menuItems, menuSearchTerm]);
+
+  const totalMenuPages = useMemo(
+    () => Math.max(1, Math.ceil(filteredMenuItems.length / MENU_ITEMS_PER_PAGE)),
+    [filteredMenuItems.length],
+  );
+
+  const paginatedMenuItems = useMemo(() => {
+    const from = (menuPage - 1) * MENU_ITEMS_PER_PAGE;
+    const to = from + MENU_ITEMS_PER_PAGE;
+    return filteredMenuItems.slice(from, to);
+  }, [filteredMenuItems, menuPage]);
+
+  useEffect(() => {
+    setMenuPage(1);
+  }, [menuSearchTerm]);
+
+  useEffect(() => {
+    if (menuPage > totalMenuPages) {
+      setMenuPage(totalMenuPages);
+    }
+  }, [menuPage, totalMenuPages]);
 
   // --- BOOKING LOGIC WITH EMAILS ---
   const confirmBooking = async (booking: Booking) => {
@@ -626,10 +661,19 @@ const AdminDashboard = () => {
 
           {/* Menu Items List */}
           <div className="md:col-span-2 space-y-4 order-1 md:order-2">
+            <div className="relative w-full md:w-80">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search item or category..."
+                className="pl-10 bg-white/90 w-full border-gold/25 focus-visible:ring-gold"
+                value={menuSearchTerm}
+                onChange={(e) => setMenuSearchTerm(e.target.value)}
+              />
+            </div>
             
             {/* Mobile List View */}
             <div className="md:hidden space-y-3">
-              {menuItems.map(item => (
+              {paginatedMenuItems.map(item => (
                 <div key={item.id} className="bg-card/95 p-4 rounded-xl border border-gold/15 shadow-soft flex justify-between items-center">
                    <div>
                       <div className="font-semibold text-charcoal">{item.name}</div>
@@ -642,6 +686,9 @@ const AdminDashboard = () => {
                    </div>
                 </div>
               ))}
+              {paginatedMenuItems.length === 0 && (
+                <div className="text-center py-10 text-muted-foreground">No menu items found.</div>
+              )}
             </div>
 
             {/* Desktop Table View */}
@@ -655,7 +702,7 @@ const AdminDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gold/10">
-                  {menuItems.map((item) => (
+                  {paginatedMenuItems.map((item) => (
                     <tr key={item.id} className="hover:bg-cream/60">
                       <td className="px-6 py-4">
                         <div className="font-medium text-charcoal">{item.name}</div>
@@ -668,8 +715,37 @@ const AdminDashboard = () => {
                       </td>
                     </tr>
                   ))}
+                  {paginatedMenuItems.length === 0 && (
+                    <tr><td colSpan={3} className="text-center py-8 text-muted-foreground">No menu items found.</td></tr>
+                  )}
                 </tbody>
               </table>
+            </div>
+
+            <div className="flex items-center justify-between px-2 pb-2">
+              <span className="text-xs md:text-sm text-muted-foreground">
+                Page {menuPage} of {Math.max(1, totalMenuPages)}
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  className={subtleAction}
+                  size="sm"
+                  onClick={() => setMenuPage((prev) => Math.max(1, prev - 1))}
+                  disabled={menuPage === 1}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  className={subtleAction}
+                  size="sm"
+                  onClick={() => setMenuPage((prev) => Math.min(totalMenuPages, prev + 1))}
+                  disabled={menuPage >= totalMenuPages}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

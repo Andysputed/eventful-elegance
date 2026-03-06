@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Utensils, ChefHat, Clock, Leaf, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // Added for navigation
-import restaurantImage from "@/assets/restaurant.jpg";
+import restaurantImage from "@/assets/outdoor-setup.webp";
 
 const diningFeatures = [
   {
@@ -114,7 +114,9 @@ const DiningSection = () => {
               <img
                 src={restaurantImage}
                 alt="Bamboo Woods Restaurant"
-                className="w-full h-[500px] object-cover"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-[500px] object-cover object-center [image-rendering:auto] contrast-[1.02] saturate-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 to-transparent" />
             </div>

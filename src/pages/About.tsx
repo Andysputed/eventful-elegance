@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Award, Heart, History, Users, Leaf, Trees } from "lucide-react";
-import aboutImage from "@/assets/restaurant.jpg"; // Using your existing image
+import aboutImage from "@/assets/garden.webp"; 
 
 const values = [
   {

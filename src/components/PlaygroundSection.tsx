@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { FerrisWheel, Wind, ShieldCheck, Smile, Car } from "lucide-react";
+import { FerrisWheel, Wind, ShieldCheck, Car } from "lucide-react";
+import RacingCars from "@/assets/carss.webp";
 
 const playgroundFeatures = [
   {
@@ -24,12 +25,26 @@ const playgroundFeatures = [
   },
 ];
 
+const playgroundGallery = [
+  {
+    title: "Mini Cars",
+    image: RacingCars,
+    alt: "Kids racing cars at the Bamboo Kids' Zone",
+  },
+  {
+    title: "High-Flying Swings",
+  },
+  {
+    title: "Spinning Fun",
+  },
+];
+
 const PlaygroundSection = () => {
   return (
     <section id="playground" className="py-24 bg-stone-50 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-gold font-medium uppercase tracking-widest text-sm"
@@ -40,7 +55,7 @@ const PlaygroundSection = () => {
             The Bamboo Kids' Zone
           </h2>
           <p className="text-muted-foreground text-lg">
-            Let the children explore our secure playground while you enjoy your meal. 
+            Let the children explore our secure playground while you enjoy your meal.
             From high-flying swings to racing cars and spinners, we have it all.
           </p>
         </div>
@@ -67,46 +82,29 @@ const PlaygroundSection = () => {
           ))}
         </div>
 
-        {/* --- IMAGE PLACEHOLDERS --- */}
+        {/* Playground Images */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
-          >
-            {/* Replace 'src' with your Racing Car photo path later */}
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
-              <span className="font-display font-bold">RACING CARS PHOTO</span>
-            </div>
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-            <div className="absolute bottom-4 left-4 text-white font-bold">Mini Racers</div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
-          >
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
-              <span className="font-display font-bold">SWINGS PHOTO</span>
-            </div>
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-            <div className="absolute bottom-4 left-4 text-white font-bold">High-Flying Swings</div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
-          >
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500">
-              <span className="font-display font-bold">MERRY-GO-ROUND PHOTO</span>
-            </div>
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-            <div className="absolute bottom-4 left-4 text-white font-bold">Spinning Fun</div>
-          </motion.div>
+          {playgroundGallery.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              className="group relative h-72 rounded-2xl overflow-hidden bg-gray-200"
+            >
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover object-center [image-rendering:auto] contrast-[1.03] saturate-110 transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : null}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+              <div className="absolute bottom-4 left-4 text-white font-bold">{item.title}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -25,7 +25,15 @@ const MenuPage = () => {
     fetchMenu();
   }, []);
 
-  const categories = ["Starters", "Main Course", "Dessert", "Drinks"];
+  const categories = useMemo(() => {
+    return Array.from(
+      new Set(
+        menuItems
+          .map((item) => item.category?.trim())
+          .filter((category): category is string => Boolean(category)),
+      ),
+    );
+  }, [menuItems]);
 
   return (
     <div className="min-h-screen bg-stone-50">
