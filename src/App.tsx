@@ -10,6 +10,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 
 // NEW IMPORT
 import ScrollToTop from "@/components/ScrollToTop"; 
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 // Pages
 import MenuPage from "./pages/Menu";
@@ -33,6 +34,7 @@ const App = () => (
         <BrowserRouter>
           {/* --- FIX ADDED HERE --- */}
           <ScrollToTop /> 
+          <WhatsAppButton />
           {/* ---------------------- */}
           
           <Routes>
