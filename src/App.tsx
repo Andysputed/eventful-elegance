@@ -21,7 +21,12 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
+// Admin Components
+import AdminLayout from "@/components/admin/AdminLayout";
+import { BookingsManager } from "@/components/admin/BookingsManager";
+import { MenuManager } from "@/components/admin/MenuManager";
+import { AccommodationManager } from "@/components/admin/AccommodationManager";
+import { AdminSettings } from "@/components/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -49,7 +54,12 @@ const App = () => (
 
             {/* Protected Admin Routes */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<BookingsManager />} />
+                <Route path="accommodation" element={<AccommodationManager />} />
+                <Route path="menu" element={<MenuManager />} />
+                <Route path="settings" element={<AdminSettings />} />
+              </Route>
             </Route>
 
             {/* Catch-all Route */}

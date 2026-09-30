@@ -5,7 +5,8 @@ export interface Booking {
   email: string;
   phone: string;
   type: string;
-  date: string;
+  date?: string;
+  booking_date?: string;
   guests: number;
   message: string;
   status: string;

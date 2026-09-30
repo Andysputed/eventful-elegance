@@ -26,6 +26,19 @@ import {
   dangerAction,
   subtleAction,
 } from "./types";
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return "N/A";
+  const normalized = dateStr.includes("T") ? dateStr : `${dateStr}T00:00:00`;
+  const parsed = new Date(normalized);
+  return isNaN(parsed.getTime())
+    ? dateStr
+    : parsed.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+};
 
 export const BookingsManager = () => {
   const [loading, setLoading] = useState(true);
@@ -268,7 +281,7 @@ export const BookingsManager = () => {
                     <span className="font-bold text-charcoal text-lg">{booking.name}</span>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
                       <Calendar className="w-3 h-3" />
-                      {new Date(booking.date).toLocaleDateString()}
+                      {formatDate(booking.date || booking.booking_date)}
                       <span className="text-gold/40">|</span>
                       <Users className="w-3 h-3" />
                       {booking.guests} Guests
@@ -355,7 +368,7 @@ export const BookingsManager = () => {
                   {bookings.map((booking) => (
                     <tr key={booking.id} className="hover:bg-cream/60">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {new Date(booking.date).toLocaleDateString()}
+                        {formatDate(booking.date || booking.booking_date)}
                       </td>
                       <td className="px-6 py-4">
                         <div className="font-medium text-charcoal">{booking.name}</div>
