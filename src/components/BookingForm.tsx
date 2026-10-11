@@ -301,7 +301,7 @@ const BookingForm = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, eventDate: e.target.value })
                       }
-                      className="h-12"
+                      className="h-12 text-black"
                       disabled={isLoading}
                     />
                   </div>

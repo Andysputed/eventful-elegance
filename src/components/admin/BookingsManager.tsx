@@ -280,8 +280,10 @@ export const BookingsManager = () => {
                   <div className="flex flex-col">
                     <span className="font-bold text-charcoal text-lg">{booking.name}</span>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                      <Calendar className="w-3 h-3" />
-                      {formatDate(booking.date || booking.booking_date)}
+                      <Calendar className="w-3 h-3 text-black" />
+                      <span className="text-black font-medium">
+                        {formatDate(booking.date || booking.booking_date)}
+                      </span>
                       <span className="text-gold/40">|</span>
                       <Users className="w-3 h-3" />
                       {booking.guests} Guests
@@ -367,7 +369,7 @@ export const BookingsManager = () => {
                 <tbody className="divide-y divide-gold/10">
                   {bookings.map((booking) => (
                     <tr key={booking.id} className="hover:bg-cream/60">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-black font-medium">
                         {formatDate(booking.date || booking.booking_date)}
                       </td>
                       <td className="px-6 py-4">
