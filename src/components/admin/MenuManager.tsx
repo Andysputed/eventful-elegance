@@ -171,7 +171,7 @@ export const MenuManager = () => {
               variant="ghost"
               size="sm"
               onClick={resetForm}
-              className="text-xs h-6 text-muted-foreground hover:text-charcoal"
+              className="text-xs h-6 text-charcoal/75 hover:text-charcoal"
             >
               Cancel
             </Button>
@@ -184,6 +184,7 @@ export const MenuManager = () => {
               value={newItem.name}
               onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
               placeholder="e.g. Beef Burger"
+              className="text-charcoal placeholder:text-charcoal/60"
             />
           </div>
           <div>
@@ -193,12 +194,13 @@ export const MenuManager = () => {
               value={newItem.price}
               onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
               placeholder="800"
+              className="text-charcoal placeholder:text-charcoal/60"
             />
           </div>
           <div>
             <Label>Category</Label>
             <select
-              className="w-full flex h-10 rounded-md border border-input bg-background px-3 text-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+              className="w-full flex h-10 rounded-md border border-input bg-background px-3 text-sm text-charcoal focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
               value={newItem.category}
               onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
             >
@@ -218,7 +220,7 @@ export const MenuManager = () => {
                 setNewItem({ ...newItem, description: e.target.value })
               }
               placeholder="e.g. Served with fries"
-              className="resize-none"
+              className="resize-none text-charcoal placeholder:text-charcoal/60"
             />
           </div>
           <Button
@@ -241,10 +243,10 @@ export const MenuManager = () => {
       {/* Menu Items List */}
       <div className="md:col-span-2 space-y-4 order-1 md:order-2">
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/75 h-4 w-4" />
           <Input
             placeholder="Search item or category..."
-            className="pl-10 bg-white/90 w-full border-gold/25 focus-visible:ring-gold"
+            className="pl-10 bg-white/90 text-charcoal placeholder:text-charcoal/60 w-full border-gold/25 focus-visible:ring-gold"
             value={menuSearchTerm}
             onChange={(e) => setMenuSearchTerm(e.target.value)}
           />
@@ -259,7 +261,7 @@ export const MenuManager = () => {
             >
               <div>
                 <div className="font-semibold text-charcoal">{item.name}</div>
-                <div className="text-xs text-muted-foreground">{item.category}</div>
+                <div className="text-xs text-charcoal/75">{item.category}</div>
                 <div className="font-medium text-forest mt-1">KES {item.price}</div>
               </div>
               <div className="flex flex-col gap-2">
@@ -283,7 +285,7 @@ export const MenuManager = () => {
             </div>
           ))}
           {paginatedMenuItems.length === 0 && (
-            <div className="text-center py-10 text-muted-foreground">
+            <div className="text-center py-10 text-charcoal/75">
               No menu items found.
             </div>
           )}
@@ -292,7 +294,7 @@ export const MenuManager = () => {
         {/* Desktop Table View */}
         <div className={`hidden md:block overflow-hidden ${cardShell}`}>
           <table className="w-full text-sm text-left">
-            <thead className="bg-cream-dark/70 text-muted-foreground font-medium">
+            <thead className="bg-cream-dark/70 text-charcoal/75 font-medium">
               <tr>
                 <th className="px-6 py-4">Item</th>
                 <th className="px-6 py-4">Price</th>
@@ -304,7 +306,7 @@ export const MenuManager = () => {
                 <tr key={item.id} className="hover:bg-cream/60">
                   <td className="px-6 py-4">
                     <div className="font-medium text-charcoal">{item.name}</div>
-                    <div className="text-xs text-muted-foreground">{item.category}</div>
+                    <div className="text-xs text-charcoal/75">{item.category}</div>
                   </td>
                   <td className="px-6 py-4 font-medium text-forest">KES {item.price}</td>
                   <td className="px-6 py-4 text-right space-x-2">
@@ -329,7 +331,7 @@ export const MenuManager = () => {
               ))}
               {paginatedMenuItems.length === 0 && (
                 <tr>
-                  <td colSpan={3} className="text-center py-8 text-muted-foreground">
+                  <td colSpan={3} className="text-center py-8 text-charcoal/75">
                     No menu items found.
                   </td>
                 </tr>
@@ -340,7 +342,7 @@ export const MenuManager = () => {
 
         {/* Pagination Controls */}
         <div className="flex items-center justify-between px-2 pb-2">
-          <span className="text-xs md:text-sm text-muted-foreground">
+          <span className="text-xs md:text-sm text-charcoal/75">
             Page {menuPage} of {Math.max(1, totalMenuPages)}
           </span>
           <div className="flex gap-2">

@@ -9,7 +9,7 @@ export const StatusBadge = ({ status }: StatusBadgeProps) => (
         ? "bg-green-100 text-green-700 border-green-200"
         : status === "cancelled"
         ? "border-red-100 bg-red-50 text-red-700"
-        : "border-gold/25 bg-gold/10 text-gold-dark"
+        : "border-gold/25 bg-gold/10 text-charcoal/75"
     }`}
   >
     {status.charAt(0).toUpperCase() + status.slice(1)}

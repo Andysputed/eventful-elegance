@@ -27,7 +27,7 @@ export const BookingRejectionModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="max-w-md w-full overflow-hidden rounded-2xl border border-red-100 bg-card shadow-elevated animate-in fade-in zoom-in duration-200">
+      <div className="max-w-md w-full overflow-hidden rounded-2xl border border-red-100 bg-card text-charcoal shadow-elevated animate-in fade-in zoom-in duration-200">
         <div className="flex items-center gap-3 border-b border-red-100 bg-red-50 p-4">
           <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600">
             <AlertCircle className="h-5 w-5" />
@@ -41,7 +41,7 @@ export const BookingRejectionModal = ({
           <div>
             <Label className="text-charcoal/80">Reason for rejection</Label>
             <select
-              className="mt-1.5 w-full rounded-md border border-input bg-background p-2.5 text-sm focus:border-red-500 focus:ring-red-500"
+              className="mt-1.5 w-full rounded-md border border-input bg-background p-2.5 text-sm text-charcoal focus:border-red-500 focus:ring-red-500"
               value={rejectionReason}
               onChange={(e) => onReasonChange(e.target.value)}
             >

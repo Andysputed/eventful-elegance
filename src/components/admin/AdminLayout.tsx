@@ -81,7 +81,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             cn(
               "group flex items-center justify-between rounded-lg px-3.5 py-3 text-sm font-medium transition-all duration-200 border-l-4",
               isActive
-                ? "bg-gold/15 text-gold border-gold font-semibold shadow-sm"
+                ? "bg-gold/15 text-cream border-gold font-semibold shadow-sm"
                 : "text-cream/70 hover:text-cream hover:bg-white/5 border-transparent"
             )
           }
@@ -237,7 +237,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* ========================================================
           MAIN CONTENT AREA (Right of sidebar, with <Outlet />)
       ======================================================== */}
-      <main className="flex-1 min-h-screen relative overflow-y-auto bg-gradient-hero p-4 pb-20 md:p-8">
+      <main className="flex-1 min-h-screen relative overflow-y-auto bg-gradient-hero p-4 pb-20 text-charcoal md:p-8">
         {/* Ambient atmospheric glow orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -left-20 -top-24 h-72 w-72 rounded-full bg-gold/12 blur-3xl" />

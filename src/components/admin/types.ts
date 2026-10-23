@@ -24,10 +24,10 @@ export interface MenuItem {
 export const ITEMS_PER_PAGE = 10;
 export const MENU_ITEMS_PER_PAGE = 6;
 
-export const cardShell = "rounded-2xl border border-gold/15 bg-card/95 shadow-soft";
+export const cardShell = "rounded-2xl border border-gold/15 bg-card/95 text-charcoal shadow-soft";
 export const primaryAction =
-  "bg-gradient-to-r from-gold to-gold-dark text-cream shadow-gold hover:shadow-elevated hover:scale-[1.01] active:scale-[0.99]";
-export const positiveAction = "bg-green-600 text-white hover:bg-green-700";
+  "bg-charcoal text-cream border border-gold/40 shadow-gold hover:bg-forest hover:shadow-elevated hover:scale-[1.01] active:scale-[0.99]";
+export const positiveAction = "bg-green-700 text-white hover:bg-green-800";
 export const dangerAction =
   "border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800";
 export const subtleAction =

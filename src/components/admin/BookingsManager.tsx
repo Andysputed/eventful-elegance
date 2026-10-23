@@ -233,7 +233,7 @@ export const BookingsManager = () => {
             }}
             className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
               viewMode === "upcoming"
-                ? "bg-green-600 text-white shadow-sm"
+                ? "bg-green-700 text-white shadow-sm"
                 : "text-green-700 hover:bg-green-50"
             }`}
           >
@@ -246,8 +246,8 @@ export const BookingsManager = () => {
             }}
             className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
               viewMode === "history"
-                ? "bg-gold-dark text-cream shadow-sm"
-                : "text-gold-dark hover:bg-gold/10"
+                ? "bg-gold text-charcoal shadow-sm"
+                : "text-charcoal hover:bg-gold/10"
             }`}
           >
             History
@@ -255,10 +255,10 @@ export const BookingsManager = () => {
         </div>
 
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/75 h-4 w-4" />
           <Input
             placeholder="Search name or phone..."
-            className="pl-10 bg-white/90 w-full border-gold/25 focus-visible:ring-gold"
+            className="pl-10 bg-white/90 text-charcoal placeholder:text-charcoal/60 w-full border-gold/25 focus-visible:ring-gold"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -279,7 +279,7 @@ export const BookingsManager = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex flex-col">
                     <span className="font-bold text-charcoal text-lg">{booking.name}</span>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                    <div className="flex items-center gap-2 text-xs text-charcoal/75 mt-1">
                       <Calendar className="w-3 h-3 text-black" />
                       <span className="text-black font-medium">
                         {formatDate(booking.date || booking.booking_date)}
@@ -310,7 +310,7 @@ export const BookingsManager = () => {
 
                 {/* Message (if any) */}
                 {booking.message && (
-                  <div className="text-xs text-charcoal/70 italic bg-gold/10 p-2 rounded border border-gold/20">
+                  <div className="text-xs text-charcoal/75 italic bg-gold/10 p-2 rounded border border-gold/20">
                     "{booking.message}"
                   </div>
                 )}
@@ -347,7 +347,7 @@ export const BookingsManager = () => {
               </div>
             ))}
             {bookings.length === 0 && (
-              <div className="text-center py-10 text-muted-foreground">
+              <div className="text-center py-10 text-charcoal/75">
                 No bookings found.
               </div>
             )}
@@ -357,7 +357,7 @@ export const BookingsManager = () => {
           <div className={`hidden md:block overflow-hidden mb-4 ${cardShell}`}>
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left">
-                <thead className="bg-cream-dark/70 text-muted-foreground font-medium">
+                <thead className="bg-cream-dark/70 text-charcoal/75 font-medium">
                   <tr>
                     <th className="px-6 py-4">Date</th>
                     <th className="px-6 py-4">Customer</th>
@@ -374,11 +374,11 @@ export const BookingsManager = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="font-medium text-charcoal">{booking.name}</div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-xs text-charcoal/75">
                           {booking.guests} guests • {booking.type}
                         </div>
                         {booking.message && (
-                          <div className="mt-1 text-xs text-gold-dark bg-gold/10 border border-gold/20 p-1 rounded inline-block max-w-[200px] truncate">
+                          <div className="mt-1 text-xs text-charcoal/75 bg-gold/10 border border-gold/20 p-1 rounded inline-block max-w-[200px] truncate">
                             "{booking.message}"
                           </div>
                         )}
@@ -389,14 +389,14 @@ export const BookingsManager = () => {
                             href={`tel:${booking.phone}`}
                             className="flex items-center gap-2 text-xs font-medium text-charcoal/80 hover:text-forest transition-colors"
                           >
-                            <Phone className="h-3 w-3 text-muted-foreground" />
+                            <Phone className="h-3 w-3 text-charcoal/75" />
                             {booking.phone}
                           </a>
                           <a
                             href={`mailto:${booking.email}`}
-                            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-forest transition-colors"
+                            className="flex items-center gap-2 text-xs text-charcoal/75 hover:text-forest transition-colors"
                           >
-                            <Mail className="h-3 w-3 text-muted-foreground" />
+                            <Mail className="h-3 w-3 text-charcoal/75" />
                             {booking.email.length > 20
                               ? booking.email.substring(0, 18) + "..."
                               : booking.email}
@@ -432,7 +432,7 @@ export const BookingsManager = () => {
                           <Button
                             size="icon"
                             variant="ghost"
-                            className="h-7 w-7 text-muted-foreground hover:text-gold-dark hover:bg-gold/10"
+                            className="h-7 w-7 text-charcoal/75 hover:text-gold-dark hover:bg-gold/10"
                             onClick={() => undoStatus(booking.id)}
                             title="Undo"
                           >
@@ -444,7 +444,7 @@ export const BookingsManager = () => {
                   ))}
                   {bookings.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="text-center py-8 text-muted-foreground">
+                      <td colSpan={5} className="text-center py-8 text-charcoal/75">
                         No bookings found.
                       </td>
                     </tr>
@@ -456,7 +456,7 @@ export const BookingsManager = () => {
 
           {/* PAGINATION CONTROLS */}
           <div className="flex items-center justify-between px-2 pb-8 md:pb-0">
-            <span className="text-xs md:text-sm text-muted-foreground">
+            <span className="text-xs md:text-sm text-charcoal/75">
               Page {page} of {Math.max(1, totalPages)}
             </span>
             <div className="flex gap-2">
